@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ai-desktop",
+  "version": "0.1.0",
+  "identifier": "cn.mini189.ai-desktop",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist",
+    "removeUnusedCommands": true
+  },
+  "app": {
+    "macOSPrivateApi": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "ai desktop",
+        "width": 1920,
+        "height": 1024,
+        "visible": false
+      },
+      {
+        "label": "splashscreen",
+        "title": "ai desktop loading",
+        "url": "/splashscreen.html",
+        "width": 512,
+        "height": 512
+      }
+    ],
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**"]
+      },
+      "csp": {
+        "default-src": "'self' asset:",
+        "connect-src": "'self' ipc: asset:",
+        "script-src": "'self' 'unsafe-eval' https://unpkg.com/mermaid@11.4.0/dist/mermaid.min.js",
+        "font-src": "'self' data:",
+        "style-src": "'self' 'unsafe-inline'"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQwOUUzQzlENzc1NkI2MkIKUldRcnRsWjNuVHllMEh6QjA0UEJBY21wdEhJQlZPT1VaL2FPNTN5MkVvKzgrMmcwWmhMUnd4a0cK",
+      "endpoints": [
+        "https://jonathan197608.github.io/ai-desktop/latest.json"
+      ]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "createUpdaterArtifacts": true,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "externalBin": ["binaries/uv", "binaries/bun"],
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 1920,
+          "height": 1024
+        }
+      }
+    }
+  }
+}

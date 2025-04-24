@@ -1,0 +1,9 @@
+{
+  "version": "0.1.0",
+  "platforms": {
+    "darwin-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRcnRsWjNuVHllMEFFRGFBYWRVb2MvNjE1ejkwMmRiQ2FQZFFDbnlLUDBuRWsxYS96RDNZS3A3ZXAyMVRjL1Q4SUtoL29tckhIaWt6eEhSakFUTlZjaGZpZHZwdXdBcndZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzQ1MjkwMTQyCWZpbGU6YWktZGVza3RvcC5hcHAudGFyLmd6CjNtUWhpMXU0d2NWV2p6S3RBUHJDVCtEWHQva3pXMFV0OW56QXMxNzB0ZnZtTzdaN3N1T1lOOWdHdncybUpSQ0dlcFZUY3RYZGhGYlFmS3FrL3FMeEFRPT0K",
+      "url": "https://github.com/jonathan197608/ai-desktop/releases/download/v0.1.0/ai-desktop.app.tar.gz"
+    }
+  }
+}

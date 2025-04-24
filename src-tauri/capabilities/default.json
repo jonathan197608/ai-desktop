@@ -1,0 +1,267 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "os:default",
+    "log:default",
+    "fs:default",
+    "fs:scope-appdata",
+    "fs:allow-appdata-meta-recursive",
+    "fs:allow-appdata-write-recursive",
+    "dialog:default",
+    "store:default",
+    "clipboard-manager:default",
+    "clipboard-manager:allow-write-text",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://**"
+        }
+      ]
+    },
+    "opener:default",
+    "opener:allow-default-urls",
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "**"
+        }
+      ]
+    },
+    "shell:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "x",
+            "--silent",
+            "officeparser",
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "x",
+            "--silent",
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "x",
+            "--silent",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "x",
+            "--silent",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "x",
+            "--silent",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "x",
+            "--silent",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/uv",
+          "sidecar": true,
+          "args": [
+            "tool",
+            "run",
+            "-q",
+            "--no-progress",
+            {
+              "validator": ".+"
+            }
+          ]
+        },
+        {
+          "name": "binaries/uv",
+          "sidecar": true,
+          "args": [
+            "tool",
+            "run",
+            "-q",
+            "--no-progress",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        },
+        {
+          "name": "binaries/uv",
+          "sidecar": true,
+          "args": [
+            "tool",
+            "run",
+            "-q",
+            "--no-progress",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        },
+        {
+          "name": "binaries/uv",
+          "sidecar": true,
+          "args": [
+            "tool",
+            "run",
+            "-q",
+            "--no-progress",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        },
+        {
+          "name": "binaries/uv",
+          "sidecar": true,
+          "args": [
+            "tool",
+            "run",
+            "-q",
+            "--no-progress",
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            },
+            {
+              "validator": ".+"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
