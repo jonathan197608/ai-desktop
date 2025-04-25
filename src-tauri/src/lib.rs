@@ -2,13 +2,22 @@ mod mcp;
 
 use mcp::{mcp_call_tool, mcp_list_tools, mcp_start, mcp_stop};
 use rmcp::{ServiceError, transport::sse::SseTransportError};
+use std::sync::{Arc, LazyLock};
+use std::time::Duration;
 use std::{env, fs};
+use tauri::async_runtime::spawn;
 use tauri::menu::MenuBuilder;
 use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Manager, State};
+use tauri_plugin_http::reqwest;
+use tauri_plugin_http::reqwest::Client;
 use tauri_plugin_log::{Target, TargetKind};
 use tokio::sync::Mutex;
 use tokio::task::JoinError;
+
+static UV_PYTHON_INSTALL_MIRROR: LazyLock<Arc<Mutex<bool>>> =
+    LazyLock::new(|| Arc::new(Mutex::new(false)));
+const PYTHON_RELEASE: &str = "https://github.com/astral-sh/python-build-standalone/releases";
 
 #[derive(Debug, thiserror::Error)]
 enum Error {
@@ -24,6 +33,8 @@ enum Error {
     Join(#[from] JoinError),
     #[error(transparent)]
     Shell(#[from] tauri_plugin_shell::Error),
+    #[error(transparent)]
+    Req(#[from] reqwest::Error),
 }
 
 impl serde::Serialize for Error {
@@ -37,11 +48,42 @@ impl serde::Serialize for Error {
 
 struct SetupState {
     frontend_task: bool,
+    backend_task: bool,
 }
 
 #[derive(serde::Serialize)]
 struct AppInfo {
     version: String,
+}
+
+async fn check_release() -> Result<bool, Error> {
+    let client = Client::builder()
+        .timeout(Duration::from_secs(10)) // 设置超时时间为 10 秒
+        .build()?;
+    if let Ok(resp) = client.get(PYTHON_RELEASE).send().await {
+        if resp.status().is_success() {
+            return Ok(true);
+        }
+    }
+    Ok(false)
+}
+async fn setup(app: AppHandle) -> Result<(), Error> {
+    match check_release().await {
+        Ok(false) | Err(_) => *UV_PYTHON_INSTALL_MIRROR.lock().await = true,
+        Ok(true) => {}
+    }
+    log::info!(
+        "setup finished, use mirror: {}",
+        *UV_PYTHON_INSTALL_MIRROR.lock().await
+    );
+    set_complete(
+        app.clone(),
+        app.state::<Mutex<SetupState>>(),
+        "backend".to_string(),
+    )
+    .await
+    .ok();
+    Ok(())
 }
 
 #[tauri::command]
@@ -71,10 +113,11 @@ async fn set_complete(
     let mut state_lock = state.lock().await;
     match task.as_str() {
         "frontend" => state_lock.frontend_task = true,
+        "backend" => state_lock.backend_task = true,
         _ => panic!("invalid task completed!"),
     }
     // Check if both tasks are completed
-    if state_lock.frontend_task {
+    if state_lock.backend_task && state_lock.frontend_task {
         // Setup is complete, we can close the splashscreen
         // and show the main window!
         if let Some(splash_window) = app.get_webview_window("splashscreen") {
@@ -91,23 +134,8 @@ pub fn run() {
     tauri::Builder::default()
         .manage(Mutex::new(SetupState {
             frontend_task: false,
+            backend_task: false,
         }))
-        .setup(|app| {
-            #[cfg(desktop)]
-            {
-                let menu = MenuBuilder::new(app).hide_others().quit().build()?;
-                app.handle().plugin(tauri_plugin_positioner::init())?;
-                TrayIconBuilder::new()
-                    .menu(&menu)
-                    .show_menu_on_left_click(true)
-                    .icon(app.default_window_icon().unwrap().clone())
-                    .on_tray_icon_event(|tray_handle, event| {
-                        tauri_plugin_positioner::on_tray_event(tray_handle.app_handle(), &event);
-                    })
-                    .build(app)?;
-            }
-            Ok(())
-        })
         .plugin(tauri_plugin_positioner::init())
         .plugin(tauri_plugin_autostart::init(Default::default(), None))
         .plugin(tauri_plugin_process::init())
@@ -139,6 +167,23 @@ pub fn run() {
             mcp_call_tool,
             mcp_stop
         ])
+        .setup(|app| {
+            #[cfg(desktop)]
+            {
+                let menu = MenuBuilder::new(app).hide_others().quit().build()?;
+                app.handle().plugin(tauri_plugin_positioner::init())?;
+                TrayIconBuilder::new()
+                    .menu(&menu)
+                    .show_menu_on_left_click(true)
+                    .icon(app.default_window_icon().unwrap().clone())
+                    .on_tray_icon_event(|tray_handle, event| {
+                        tauri_plugin_positioner::on_tray_event(tray_handle.app_handle(), &event);
+                    })
+                    .build(app)?;
+            }
+            spawn(setup(app.handle().clone()));
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

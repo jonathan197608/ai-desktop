@@ -1,4 +1,4 @@
-use super::Error;
+use super::{Error, UV_PYTHON_INSTALL_MIRROR};
 use nanoid::nanoid;
 use rmcp::service::RunningService;
 use rmcp::transport::TokioChildProcess;
@@ -14,6 +14,7 @@ use tokio::process::Command;
 use tokio::sync::Mutex;
 
 const ARG_LIMIT: usize = 5;
+const MIRROR: &str = "https://mirror.nju.edu.cn/github-release/indygreg/python-build-standalone";
 
 #[allow(non_snake_case)]
 #[derive(serde::Deserialize, Default, Debug)]
@@ -85,7 +86,7 @@ async fn make_client(
         let mut cmd_envs = server.env.clone().unwrap_or_default();
         let command = server
             .command
-            .clone()
+            .as_ref()
             .ok_or(Error::BadParam("miss command".into()))?;
         let command = match command.as_str() {
             "uvx" => {
@@ -110,6 +111,9 @@ async fn make_client(
             }
             _ => return Err(Error::BadParam("invalid command".into())),
         };
+        if *UV_PYTHON_INSTALL_MIRROR.lock().await {
+            cmd_envs.insert("UV_PYTHON_INSTALL_MIRROR".into(), MIRROR.into());
+        }
         let sidecar_command = app.shell().sidecar(command)?.args(args).envs(cmd_envs);
         let sidecar_command: std::process::Command = sidecar_command.into();
         client =
@@ -155,8 +159,8 @@ fn make_mcp_tool_list(server: &MCPServer, tools: &Vec<Tool>) -> Vec<MCPTool> {
             id: nanoid!(),
             serverId: server.id.clone(),
             serverName: server.name.clone(),
-            name: String::from(tool.name.clone()),
-            description: Some(String::from(tool.description.clone())),
+            name: String::from(tool.name.as_ref()),
+            description: Some(String::from(tool.description.as_ref())),
             inputSchema: JsonObject::clone(&tool.input_schema),
         })
         .collect()
