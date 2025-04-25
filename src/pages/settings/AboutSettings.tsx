@@ -1,5 +1,5 @@
 import { GithubOutlined } from '@ant-design/icons'
-import { GlobalOutlined, SoundOutlined } from '@ant-design/icons'
+import { GlobalOutlined } from '@ant-design/icons'
 import IndicatorLight from '@/components/IndicatorLight'
 import { HStack } from '@/components/Layout'
 import { APP_NAME, AppLogo } from '@/config/env'
@@ -67,7 +67,7 @@ const AboutSettings: FC = () => {
         <SettingTitle>
           {t('settings.about.title')}
           <HStack alignItems="center">
-            <Link to="https://github.com/jonathan197608/ai-desktop">
+            <Link to="https://gitee.com/jonathan1976/ai-desktop">
               <GithubOutlined style={{ marginRight: 4, color: 'var(--color-text)', fontSize: 20 }} />
             </Link>
           </HStack>
@@ -75,7 +75,7 @@ const AboutSettings: FC = () => {
         <SettingDivider />
         <AboutHeader>
           <Row align="middle">
-            <AvatarWrapper onClick={() => onOpenWebsite('https://github.com/jonathan197608/ai-desktop')}>
+            <AvatarWrapper onClick={() => onOpenWebsite('https://gitee.com/jonathan1976/ai-desktop')}>
               {update.downloadProgress > 0 && (
                 <ProgressCircle
                   type="circle"
@@ -92,7 +92,7 @@ const AboutSettings: FC = () => {
               <Title>{APP_NAME}</Title>
               <Description>{t('settings.about.description')}</Description>
               <Tag
-                onClick={() => onOpenWebsite('https://github.com/jonathan197608/ai-desktop/releases')}
+                onClick={() => onOpenWebsite('https://gitee.com/jonathan1976/ai-desktop/releases')}
                 color="cyan"
                 style={{ marginTop: 8, cursor: 'pointer' }}>
                 v{version}
@@ -134,17 +134,10 @@ const AboutSettings: FC = () => {
       <SettingGroup theme={theme}>
         <SettingRow>
           <SettingRowTitle>
-            <SoundOutlined />
-            {t('settings.about.releases.title')}
-          </SettingRowTitle>
-        </SettingRow>
-        <SettingDivider />
-        <SettingRow>
-          <SettingRowTitle>
             <GlobalOutlined />
             {t('settings.about.website.title')}
           </SettingRowTitle>
-          <Button onClick={() => onOpenWebsite('https://jonathan197608.github.io/ai-desktop/')}>{t('settings.about.website.button')}</Button>
+          <Button onClick={() => onOpenWebsite('https://gitee.com/jonathan1976/ai-desktop')}>{t('settings.about.website.button')}</Button>
         </SettingRow>
         <SettingDivider />
         <SettingRow>
@@ -152,7 +145,7 @@ const AboutSettings: FC = () => {
             <GithubOutlined />
             {t('settings.about.feedback.title')}
           </SettingRowTitle>
-          <Button onClick={() => onOpenWebsite('https://github.com/jonathan197608/ai-desktop/issues/new')}>
+          <Button onClick={() => onOpenWebsite('https://gitee.com/jonathan1976/ai-desktop/issues')}>
             {t('settings.about.feedback.button')}
           </Button>
         </SettingRow>

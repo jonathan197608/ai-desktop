@@ -1,13 +1,13 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "platforms": {
     "darwin-aarch64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRcnRsWjNuVHllMEEvSE9URFdzRVcxbTdHNWc0V2Uyeit4UjMrd0pQQjl3dktnRi81Q3VNQkVQbmhPMndXUUsrbm1OSFpYOXhzUzRtT1FEeWFab3JPQzMwdnE0dkFHSUFJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzQ1NDc4MzQ1CWZpbGU6YWktZGVza3RvcC5hcHAudGFyLmd6CjZ1b2V0T0JvUzJaZWlEd2RRbGRNOEpxb00rcVRUVjdBbm1MVEk4SWpDQzQ5UmxiM2FPdVN6VUZTZitMSURXQ1Jjc1Y0bkNkd3IwNDJXWThMa252YkF3PT0K",
-      "url": "https://gitee.com/jonathan1976/ai-desktop/releases/download/v0.1.0-alpha.1/ai-desktop.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRcnRsWjNuVHllMEYzaytFOVBIMG1HYkJZQ2wrR1VnS2pQMi9jWFJYcnd2OS9uTVovOUo2QTFJNVBTa3RVc2xIU0l2WUNZQmNZSlhZcFJpQW0yS0ZDYUtsMGI2QmZZS3dVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzQ1NTUxNzM1CWZpbGU6YWktZGVza3RvcC5hcHAudGFyLmd6Ck9TQ1gxemlGd3J6UWlEMm4rMEVOMEZ6VUJlcTQ3cElhaVpKODIrNVRPK3hyQStUSWdHNnUyNzd5VDRHWHl2bzc3Y1VLUFhaaUZnbDZjK3RKZVliU0FRPT0K",
+      "url": "https://gitee.com/jonathan1976/ai-desktop/releases/download/v0.1.1/ai-desktop.app.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRcnRsWjNuVHllMEpRcTIreGhBMXNTaW5hQ25TZSsyMDJWMk8rZWlMa1ZMMTBZQUhTdUY3WmExWlY0Tng1QzdOdGc0cnlDU3I4T1VTOE9JUEV0UWoyb0JNenR0aWJ1S2dJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzQ1NDc4NjE4CWZpbGU6YWktZGVza3RvcF8wLjEuMF94NjQtc2V0dXAuZXhlCkR3Tk14QVF3d0FSdTdXUDgyUHVnT1RwemwyeFFZVUFrK0U4ZG1pSFlZUTEraWJtR3pXMUdlOHU0SFhDdk1iU1pLNVVSMUczYnVXMnd1M0NtNGpNQUJRPT0K",
-      "url": "https://gitee.com/jonathan1976/ai-desktop/releases/download/v0.1.0-alpha.1/ai-desktop_0.1.0_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRcnRsWjNuVHllMEoxRys3WCtWUTRNYitMOHNBQzNBOVk0NUt2VmRyS0JtTWpiZk9zZnpkVm5hYWhLQlBpanJJUk5KYUwyWFR0MWdDanBvSml5LzJHaGQwTmhzMThYSmdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzQ1NTUyMDQ1CWZpbGU6YWktZGVza3RvcF8wLjEuMV94NjQtc2V0dXAuZXhlCmxhN0hkbFl1elZneWpBYm9wdTAvS2pSREhtQlNCZXdwQzZMMEV2Wi83aXJYbkV4YmE2eGlvYXh3SkhXbWV6bXM3aXl0OEdCRmg3NHlidjdNYXA3TERRPT0K",
+      "url": "https://gitee.com/jonathan1976/ai-desktop/releases/download/v0.1.1/ai-desktop_0.1.1_x64-setup.exe"
     }
   }
 }
