@@ -12,6 +12,7 @@ use tauri::{AppHandle, Manager, State};
 use tauri_plugin_http::reqwest;
 use tauri_plugin_http::reqwest::Client;
 use tauri_plugin_log::{Target, TargetKind};
+use tauri_plugin_positioner::{Position, WindowExt};
 use tokio::sync::Mutex;
 use tokio::task::JoinError;
 
@@ -180,6 +181,9 @@ pub fn run() {
                         tauri_plugin_positioner::on_tray_event(tray_handle.app_handle(), &event);
                     })
                     .build(app)?;
+                if let Some(splash) = app.get_webview_window("splashscreen") {
+                    splash.as_ref().window().move_window(Position::Center).ok();
+                }
             }
             spawn(setup(app.handle().clone()));
             Ok(())

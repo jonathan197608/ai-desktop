@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "ai-desktop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "identifier": "cn.mini189.ai-desktop",
   "build": {
     "beforeDevCommand": "bun run dev",
@@ -22,7 +22,7 @@
       },
       {
         "label": "splashscreen",
-        "title": "ai desktop loading",
+        "decorations": false,
         "url": "/splashscreen.html",
         "width": 512,
         "height": 512
@@ -35,7 +35,7 @@
       },
       "csp": {
         "default-src": "'self' asset:",
-        "connect-src": "'self' ipc: asset:",
+        "connect-src": "'self' ipc: asset: https://registry.npmjs.org",
         "script-src": "'self' 'unsafe-eval' https://unpkg.com/mermaid@11.4.0/dist/mermaid.min.js",
         "font-src": "'self' data:",
         "style-src": "'self' 'unsafe-inline'"
@@ -62,12 +62,9 @@
       "icons/icon.ico"
     ],
     "externalBin": ["binaries/uv", "binaries/bun"],
-    "macOS": {
-      "dmg": {
-        "windowSize": {
-          "width": 1920,
-          "height": 1024
-        }
+    "windows": {
+      "nsis": {
+        "installMode": "perMachine"
       }
     }
   }

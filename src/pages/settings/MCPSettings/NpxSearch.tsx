@@ -158,7 +158,7 @@ const NpxSearch: FC = () => {
                         name: record.name,
                         description: `${record.description}\n\n${t('settings.mcp.npx_list.usage')}: ${record.usage}\n${t('settings.mcp.npx_list.npm')}: ${record.npmLink}`,
                         command: 'npx',
-                        args: ['-y', record.fullName],
+                        args: [record.fullName],
                         isActive: false
                       }
                       addMCPServer(tempServer)
