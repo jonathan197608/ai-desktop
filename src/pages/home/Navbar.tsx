@@ -3,7 +3,7 @@ import {Navbar, NavbarLeft, NavbarRight} from '@/components/app/Navbar'
 import {HStack} from '@/components/Layout'
 import SearchPopup from '@/components/Popups/SearchPopup'
 import {useAssistant} from '@/hooks/useAssistant'
-import {modelGenerating} from '@/hooks/useRuntime'
+import {modelGenerating, useRuntime} from '@/hooks/useRuntime'
 import {useSettings} from '@/hooks/useSettings'
 import {useShortcut} from '@/hooks/useShortcuts'
 import {useShowAssistants, useShowTopics} from '@/hooks/useStore'
@@ -30,6 +30,7 @@ const HeaderNavbar: FC<Props> = ({activeAssistant}) => {
   const {showAssistants, toggleShowAssistants} = useShowAssistants()
   const {topicPosition, narrowMode} = useSettings()
   const {showTopics, toggleShowTopics} = useShowTopics()
+  const {update} = useRuntime()
   const dispatch = useAppDispatch()
 
   useShortcut('toggle_show_assistants', () => {
@@ -52,6 +53,9 @@ const HeaderNavbar: FC<Props> = ({activeAssistant}) => {
     await modelGenerating()
     dispatch(setNarrowMode(!narrowMode))
   }
+
+  let downloaded = 0
+  let contentLength: number
 
   return (
     <Navbar className="home-navbar">
@@ -84,10 +88,22 @@ const HeaderNavbar: FC<Props> = ({activeAssistant}) => {
         </HStack>
         <HStack alignItems="center" gap={8}>
           <UpdateAppButton onProgress={(event)=>{
-            if (event.event === 'Finished') {
-              setTimeout(() => {
-                relaunch().then()
-              }, 1000)
+            switch (event.event) {
+              case 'Started':
+                contentLength = event.data.contentLength || 1
+                console.log(`started downloading ${event.data.contentLength} bytes`)
+                update.downloading = true
+                break
+              case 'Progress':
+                console.log(`downloaded ${downloaded} from ${contentLength}`)
+                update.downloadProgress = downloaded / contentLength
+                break
+              case 'Finished':
+                setTimeout(() => {
+                  update.downloading = false
+                  relaunch().then()
+                }, 1000)
+                break
             }
           }}/>
           <Tooltip title={t('chat.assistant.search.placeholder')} mouseEnterDelay={0.8}>

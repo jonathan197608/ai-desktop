@@ -34,7 +34,7 @@ const persistedReducer = persistReducer(
   {
     key: 'ai-desktop',
     storage,
-    version: 87,
+    version: 100,
     blacklist: ['runtime', 'messages'],
     migrate
   },

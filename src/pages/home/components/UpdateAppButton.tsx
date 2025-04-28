@@ -22,7 +22,7 @@ const UpdateAppButton: FC<Props> = ({onProgress}) => {
     <Container>
       <UpdateButton
         className="nodrag"
-        onClick={() => update.info && window.api.showUpdateDialog(update.info, onProgress)}
+        onClick={() => update.info && window.api.applyUpdate(update.info, onProgress)}
         icon={<SyncOutlined/>}
         color="orange"
         variant="outlined"

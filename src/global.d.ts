@@ -1,4 +1,3 @@
-import type {FileMetadataResponse, ListFilesResponse, UploadFileResponse} from '@google/generative-ai/server'
 import type {MCPServer, MCPTool} from '@/types'
 import {AppInfo, FileType} from '@/types'
 import type {Store} from '@tauri-apps/plugin-store'
@@ -23,7 +22,7 @@ declare global {
     api: {
       getAppInfo: () => Promise<AppInfo>
       checkForUpdate: () => Promise<UpdateInfo | null>
-      showUpdateDialog: (info: UpdateInfo, onProgress: (progress: DownloadEvent) => void) => Promise<void>
+      applyUpdate: (info: UpdateInfo, onProgress: (progress: DownloadEvent) => void) => Promise<void>
       openWebsite: (url: string) => void
       setLaunchOnBoot: (isActive: boolean) => Promise<void>
       file: {

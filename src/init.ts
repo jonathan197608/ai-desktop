@@ -37,7 +37,7 @@ const api = {
   getAppInfo: () => invoke('get_app_info'),
   checkForUpdate: () => check(),
   openWebsite: (url: string) => openUrl(url),
-  showUpdateDialog: (info: UpdateInfo, onProgress: ((progress: DownloadEvent) => void) | undefined) => info.downloadAndInstall(onProgress),
+  applyUpdate: (info: UpdateInfo, onProgress: ((progress: DownloadEvent) => void) | undefined) => info.downloadAndInstall(onProgress),
   setLaunchOnBoot: async (isActive: boolean) => isActive ? await enable() : await disable(),
   file: {
     select: (options?: OpenDialogOptions) => selectFiles(options),

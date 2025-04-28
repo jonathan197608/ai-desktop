@@ -64,13 +64,19 @@ async fn check_release() -> Result<bool, Error> {
     if let Ok(resp) = client.get(PYTHON_RELEASE).send().await {
         if resp.status().is_success() {
             return Ok(true);
+        } else {
+            log::error!("failed to check python release: {}", resp.status());
         }
     }
     Ok(false)
 }
 async fn setup(app: AppHandle) -> Result<(), Error> {
     match check_release().await {
-        Ok(false) | Err(_) => *UV_PYTHON_INSTALL_MIRROR.lock().await = true,
+        Ok(false) => *UV_PYTHON_INSTALL_MIRROR.lock().await = true,
+        Err(e) => {
+            *UV_PYTHON_INSTALL_MIRROR.lock().await = true;
+            log::error!("failed to check python release: {}", e);
+        }
         Ok(true) => {}
     }
     log::info!(
