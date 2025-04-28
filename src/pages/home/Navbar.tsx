@@ -3,7 +3,7 @@ import {Navbar, NavbarLeft, NavbarRight} from '@/components/app/Navbar'
 import {HStack} from '@/components/Layout'
 import SearchPopup from '@/components/Popups/SearchPopup'
 import {useAssistant} from '@/hooks/useAssistant'
-import {modelGenerating, useRuntime} from '@/hooks/useRuntime'
+import {modelGenerating} from '@/hooks/useRuntime'
 import {useSettings} from '@/hooks/useSettings'
 import {useShortcut} from '@/hooks/useShortcuts'
 import {useShowAssistants, useShowTopics} from '@/hooks/useStore'
@@ -15,9 +15,8 @@ import {Tooltip} from 'antd'
 import {t} from 'i18next'
 import {FC} from 'react'
 import styled from 'styled-components'
-import { relaunch } from '@tauri-apps/plugin-process'
 import SelectModelButton from './components/SelectModelButton'
-import UpdateAppButton from './components/UpdateAppButton'
+import UpdateAppButton, {makeOnProgress} from './components/UpdateAppButton'
 
 interface Props {
   activeAssistant: Assistant
@@ -30,7 +29,6 @@ const HeaderNavbar: FC<Props> = ({activeAssistant}) => {
   const {showAssistants, toggleShowAssistants} = useShowAssistants()
   const {topicPosition, narrowMode} = useSettings()
   const {showTopics, toggleShowTopics} = useShowTopics()
-  const {update} = useRuntime()
   const dispatch = useAppDispatch()
 
   useShortcut('toggle_show_assistants', () => {
@@ -53,9 +51,6 @@ const HeaderNavbar: FC<Props> = ({activeAssistant}) => {
     await modelGenerating()
     dispatch(setNarrowMode(!narrowMode))
   }
-
-  let downloaded = 0
-  let contentLength: number
 
   return (
     <Navbar className="home-navbar">
@@ -87,25 +82,7 @@ const HeaderNavbar: FC<Props> = ({activeAssistant}) => {
           <SelectModelButton assistant={assistant}/>
         </HStack>
         <HStack alignItems="center" gap={8}>
-          <UpdateAppButton onProgress={(event)=>{
-            switch (event.event) {
-              case 'Started':
-                contentLength = event.data.contentLength || 1
-                console.log(`started downloading ${event.data.contentLength} bytes`)
-                update.downloading = true
-                break
-              case 'Progress':
-                console.log(`downloaded ${downloaded} from ${contentLength}`)
-                update.downloadProgress = downloaded / contentLength
-                break
-              case 'Finished':
-                setTimeout(() => {
-                  update.downloading = false
-                  relaunch().then()
-                }, 1000)
-                break
-            }
-          }}/>
+          <UpdateAppButton onProgress={makeOnProgress(dispatch)}/>
           <Tooltip title={t('chat.assistant.search.placeholder')} mouseEnterDelay={0.8}>
             <NarrowIcon onClick={() => SearchPopup.show()}>
               <SearchOutlined/>
@@ -143,7 +120,7 @@ export const NavbarIcon = styled.div`
         font-size: 18px;
         color: var(--color-icon);
     }
-    
+
     &:hover {
         background-color: var(--color-background-mute);
         color: var(--color-icon-white);

@@ -18,6 +18,7 @@ import Markdown from 'react-markdown'
 import styled from 'styled-components'
 
 import {SettingContainer, SettingDivider, SettingGroup, SettingRow, SettingTitle} from '.'
+import {makeOnProgress} from "@/pages/home/components/UpdateAppButton.tsx";
 
 const AboutSettings: FC = () => {
   const [version, setVersion] = useState('')
@@ -36,7 +37,11 @@ const AboutSettings: FC = () => {
       dispatch(setUpdateState({checking: true}))
 
       try {
-        if (!await window.api.checkForUpdate()) {
+        const updateInfo = await window.api.checkForUpdate()
+        if (updateInfo) {
+          dispatch(setUpdateState({info: updateInfo}))
+          await window.api.applyUpdate(updateInfo, makeOnProgress(dispatch))
+        } else {
           window.message.info(t('settings.about.updateNotAvailable'))
         }
       } catch (error) {

@@ -29,9 +29,9 @@ export function useAppInit() {
     runAsyncFunction(async () => {
       if (autoCheckUpdate) {
         await delay(2)
-        const update = await window.api.checkForUpdate()
-        if (update) {
-          dispatch(setUpdateState({info: update}))
+        const updateInfo = await window.api.checkForUpdate()
+        if (updateInfo) {
+          dispatch(setUpdateState({info: updateInfo}))
         }
       }
     }).then()
