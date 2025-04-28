@@ -1,9 +1,9 @@
 ---
 layout: page
-title: About
+title: 关于
 permalink: /about/
 ---
-
+# 隐私协议
 欢迎使用AI Desktop（以下简称“本软件”或“我们”）。我们高度重视您的隐私保护，本隐私协议将说明我们如何处理与保护您的个人信息和数据。请在使用本软件前仔细阅读并理解本协议：
 一、我们收集的信息范围
 为了优化用户体验和提升软件质量，我们仅可能会匿名收集以下非个人化信息：
@@ -13,9 +13,9 @@ permalink: /about/
 上述信息完全匿名，不会涉及任何个人身份数据，也无法关联到您的个人信息。
 二、我们不会收集的任何信息
 为了最大限度保护您的隐私安全，我们明确承诺：
-• 不会收集、保存、传输或处理您输入到本软件中的模型服务 API Key 信息；
-• 不会收集、保存、传输或处理您在使用本软件过程中产生的任何对话数据，包括但不限于聊天内容、指令信息、知识库信息、向量数据及其他自定义内容；
-• 不会收集、保存、传输或处理任何可识别个人身份的敏感信息。
+• **不会收集、保存、传输或处理您输入到本软件中的模型服务 API Key 信息；**
+• **不会收集、保存、传输或处理您在使用本软件过程中产生的任何对话数据，包括但不限于聊天内容、指令信息、知识库信息、向量数据及其他自定义内容；**
+• **不会收集、保存、传输或处理任何可识别个人身份的敏感信息。**
 三、数据交互说明
 本软件采用您自行申请并配置的第三方模型服务提供商的 API Key，以完成相关模型的调用与对话功能。您使用的模型服务（例如大模型、API接口等）由您选择的第三方提供商提供并完全由其负责，AI Desktop仅作为本地工具提供与第三方模型服务的接口调用功能。
 因此：
@@ -28,14 +28,3 @@ permalink: /about/
 六、联系我们
 若您对本协议内容或AI Desktop隐私保护措施存在任何疑问，欢迎随时联系我们。
 感谢您选择并信任AI Desktop，我们将持续为您提供安全可靠的产品体验。
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
