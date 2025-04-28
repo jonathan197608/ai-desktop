@@ -20,12 +20,12 @@ categories: [manual]
 
 ## 在聊天框中启用 MCP 服务
 
-![启用MCP服务](/ai-desktop/assets/images/mcp.png "")
+!["启用MCP服务"](/ai-desktop/assets/images/mcp.png "")
 
 在聊天框看到启用 MCP 服务的按钮，需要满足以下条件：
 1、需要使用支持函数调用（在模型名字后会出现扳手符号）的模型；
 2、在 MCP 服务器 设置成功添加了 MCP 服务器
 
-![MCP效果](/ai-desktop/assets/images/mcp.avif "")
+!["MCP效果"](/ai-desktop/assets/images/mcp.avif "")
 
 从上图可以看出，结合了 MCP 的 fetch 功能后，AI Desktop 能够更好地理解用户的查询意图，并从网络上获取相关信息，给出更准确、更全面的回答。
