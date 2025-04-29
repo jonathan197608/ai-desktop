@@ -8,7 +8,7 @@ categories: [manual]
 
 #### 打开 设置。
 #### 找到 "MCP 服务器" 选项。
-点击 "添加服务器"。
+点击 "添加服务器"。<br>
 将 MCP Server 的相关参数填入（参考链接）。可能需要填写的内容包括：
 #### 名称：自定义一个名称，例如 time
 #### 类型：选择 STDIO
@@ -24,8 +24,8 @@ categories: [manual]
 
 ![启用MCP服务](/ai-desktop/assets/images/mcp0.png)
 
-在聊天框看到启用 MCP 服务的按钮，需要满足以下条件：
-1、需要使用支持函数调用（在模型名字后会出现扳手符号）的模型；
+在聊天框看到启用 MCP 服务的按钮，需要满足以下条件：<br>
+1、需要使用支持函数调用（在模型名字后会出现扳手符号）的模型；<br>
 2、在 MCP 服务器 设置成功添加了 MCP 服务器
 
 ![MCP效果](/ai-desktop/assets/images/mcp1.png)
