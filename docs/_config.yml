@@ -21,12 +21,11 @@
 title: AI Desktop
 email: 18988991633@189.cn
 description: >- # this means to ignore newlines until "baseurl:"
-
+  AI Desktop是一款集多模型对话、MCP调用、AI绘画、翻译等功能于一体的全能AI桌面应用。
 baseurl: "/ai-desktop/" # the subpath of your site, e.g. /blog
 url: "https://jonathan197608.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jonathan197608
-  AI Desktop是一款集多模型对话、MCP调用、AI绘画、翻译等功能于一体的全能AI桌面应用。
 # Build settings
 theme: minima
 plugins:
