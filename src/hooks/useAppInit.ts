@@ -31,7 +31,7 @@ export function useAppInit() {
         await delay(2)
         const updateInfo = await window.api.checkForUpdate()
         if (updateInfo) {
-          dispatch(setUpdateState({info: updateInfo}))
+          dispatch(setUpdateState({info: updateInfo, available: true}))
         }
       }
     }).then()

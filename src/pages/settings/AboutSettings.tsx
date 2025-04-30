@@ -39,7 +39,7 @@ const AboutSettings: FC = () => {
       try {
         const updateInfo = await window.api.checkForUpdate()
         if (updateInfo) {
-          dispatch(setUpdateState({info: updateInfo}))
+          dispatch(setUpdateState({info: updateInfo, available: true}))
           await window.api.applyUpdate(updateInfo, makeOnProgress(dispatch))
         } else {
           window.message.info(t('settings.about.updateNotAvailable'))

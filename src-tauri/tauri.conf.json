@@ -34,11 +34,12 @@
         "scope": ["**"]
       },
       "csp": {
-        "default-src": "'self' asset:",
-        "connect-src": "'self' ipc: asset: https://registry.npmjs.org",
+        "default-src": "'self' asset: http://asset.localhost",
+        "connect-src": "'self' ipc: asset: http://ipc.localhost http://asset.localhost https://registry.npmjs.org",
         "script-src": "'self' 'unsafe-eval' https://unpkg.com/mermaid@11.4.0/dist/mermaid.min.js",
         "font-src": "'self' data:",
-        "style-src": "'self' 'unsafe-inline'"
+        "style-src": "'self' 'unsafe-inline'",
+        "img-src": "'self' data: asset: http://asset.localhost"
       }
     }
   },
