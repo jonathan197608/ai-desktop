@@ -10,13 +10,13 @@
     "os:default",
     "log:default",
     "fs:default",
+    "fs:read-files",
     "fs:scope-appdata",
     "fs:allow-appdata-meta-recursive",
     "fs:allow-appdata-write-recursive",
     "dialog:default",
     "store:default",
-    "clipboard-manager:default",
-    "clipboard-manager:allow-write-text",
+    "clipboard-manager:allow-write-image",
     {
       "identifier": "http:default",
       "allow": [

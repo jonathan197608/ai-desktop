@@ -4534,6 +4534,7 @@ checksum = "511dd38065a5d3b36c33cdba4362b99a40a5103bebcd4aebb930717e7c8ba292"
 dependencies = [
  "anyhow",
  "bytes",
+ "data-url",
  "dirs 6.0.0",
  "dunce",
  "embed_plist",
@@ -4544,6 +4545,7 @@ dependencies = [
  "heck 0.5.0",
  "http",
  "http-range",
+ "image",
  "jni",
  "libc",
  "log",

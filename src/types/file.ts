@@ -18,6 +18,7 @@ import * as path from "@tauri-apps/api/path";
 import {Command} from '@tauri-apps/plugin-shell';
 import {fetch} from '@tauri-apps/plugin-http';
 import {v4 as uuidv4} from "uuid";
+import {base64ToUint8Array, uint8ArrayToBase64} from "uint8array-extras";
 
 // 创建文件类型映射表，提高查找效率
 const fileTypeMap = new Map<string, FileTypes>()
@@ -178,11 +179,8 @@ export async function readBase64File(filePath: string): Promise<{ mime: string, 
   const stat = await fileHandle.stat()
   const buf = new Uint8Array(stat.size)
   await fileHandle.read(buf)
-  const binString = Array.from(buf, (byte) =>
-    String.fromCodePoint(byte),
-  ).join("");
+  const base64: string = uint8ArrayToBase64(buf);
   await fileHandle.close()
-  const base64: string = window.btoa(binString)
   const ext = (await getExt(filePath)).slice(1)
   const ext2 = ext === 'jpg' ? 'jpeg' : ext
   const mime = `image/${ext2}`
@@ -280,4 +278,21 @@ export async function downloadFile(url: string): Promise<FileType> {
   const filePath = await getDataPath(uuid + ext)
   await writeBinFile(filePath, new Uint8Array(await response.arrayBuffer()), {baseDir: getBaseDir()})
   return makeFile(await getDataPathFull(uuid + ext), uuid)
+}
+
+export async function saveImage(name: string, data: string): Promise<void> {
+  try {
+    const filePath = await save({
+      title: '保存图片',
+      defaultPath: `${name}.png`,
+      filters: [{ name: 'PNG Image', extensions: ['png'] }]
+    })
+
+    if (filePath) {
+      const base64Data = data.replace(/^data:image\/png;base64,/, '')
+      await writeBinFile(filePath, base64ToUint8Array(base64Data))
+    }
+  } catch (error) {
+    console.error('An error occurred saving the image:', error)
+  }
 }

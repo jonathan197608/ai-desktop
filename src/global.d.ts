@@ -38,6 +38,7 @@ declare global {
           path: string,
           content: string | NodeJS.ArrayBufferView
         ) => Promise<string | null>
+        saveImage: (name: string, data: string) => Promise<void>
         base64Image: (fileId: string) => Promise<{ mime: string; base64: string; data: string }>
         download: (url: string) => Promise<FileType | null>
         binaryFile: (fileId: string) => Promise<{ data: ArrayBuffer; mime: string }>

@@ -1,13 +1,14 @@
 import i18n from '@/i18n'
-import { Model } from '@/types'
-import { ModalFuncProps } from 'antd/es/modal/interface'
+import {Model} from '@/types'
+import {ModalFuncProps} from 'antd/es/modal/interface'
 import imageCompression from 'browser-image-compression'
 import * as htmlToImage from 'html-to-image'
 // @ts-ignore next-line`
-import { v4 as uuidv4 } from 'uuid'
+import {v4 as uuidv4} from 'uuid'
 
-import { classNames } from './style'
+import {classNames} from './style'
 import React from "react";
+import {writeImage} from "@tauri-apps/plugin-clipboard-manager";
 
 export const runAsyncFunction = async (fn: () => void) => {
   fn()
@@ -339,6 +340,26 @@ export const captureScrollableDivAsBlob = async (
   })
 }
 
+export async function canvasAsImage(canvas: HTMLCanvasElement | undefined): Promise<void> {
+  canvas?.toBlob((blob) => {
+    if (blob) {
+      let reader = new FileReader()
+      reader.readAsArrayBuffer(blob)
+      reader.onload = async function () {
+        if (this.result) {
+          await writeImage(this.result)
+        }
+      }
+    }
+  }, 'image/png')
+}
+
+export const captureScrollableDivAsImage = async (
+  divRef: React.RefObject<HTMLDivElement | null>
+) => {
+  await captureScrollableDiv(divRef).then(canvasAsImage)
+}
+
 export function formatFileSize(size: number) {
   if (size > 1024 * 1024) {
     return (size / 1024 / 1024).toFixed(1) + ' MB'
@@ -407,4 +428,4 @@ export function hasObjectKey(obj: any, key: string) {
   return Object.keys(obj).includes(key)
 }
 
-export { classNames }
+export {classNames}

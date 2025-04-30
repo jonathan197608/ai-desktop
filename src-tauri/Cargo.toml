@@ -40,7 +40,7 @@ rmcp = { version = "0.1", features = [
 ] }
 nanoid = "0.4"
 thiserror = "2.0"
-tauri = { version = "2", features = [ "protocol-asset", "macos-private-api", "tray-icon"] }
+tauri = { version = "2", features = [ "protocol-asset", "macos-private-api", "webview-data-url", "tray-icon", "image-png"] }
 tauri-plugin-log = "2"
 tauri-plugin-fs = "2"
 tauri-plugin-dialog = "2"

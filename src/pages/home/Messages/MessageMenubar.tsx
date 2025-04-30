@@ -22,7 +22,11 @@ import {getMessageTitle, resetAssistantMessage} from '@/services/MessagesService
 import {translateText} from '@/services/TranslateService'
 import type {Message, Model} from '@/types'
 import type {Assistant, Topic} from '@/types'
-import {captureScrollableDivAsBlob, captureScrollableDivAsDataURL, removeTrailingDoubleSpaces} from '@/utils'
+import {
+  captureScrollableDivAsDataURL,
+  captureScrollableDivAsImage,
+  removeTrailingDoubleSpaces
+} from '@/utils'
 import {
   exportMarkdownToJoplin,
   exportMarkdownToNotion,
@@ -184,13 +188,7 @@ const MessageMenubar: FC<Props> = (props) => {
           {
             label: t('chat.topics.copy.image'),
             key: 'img',
-            onClick: async () => {
-              await captureScrollableDivAsBlob(messageContainerRef, async (blob) => {
-                if (blob) {
-                  await navigator.clipboard.write([new ClipboardItem({'image/png': blob})])
-                }
-              })
-            }
+            onClick: async () => await captureScrollableDivAsImage(messageContainerRef)
           },
           {
             label: t('chat.topics.export.image'),
@@ -199,7 +197,7 @@ const MessageMenubar: FC<Props> = (props) => {
               const imageData = await captureScrollableDivAsDataURL(messageContainerRef)
               const title = getMessageTitle(message)
               if (title && imageData) {
-                window.api.file.save(title, imageData).then()
+                window.api.file.saveImage(title, imageData).then()
               }
             }
           },

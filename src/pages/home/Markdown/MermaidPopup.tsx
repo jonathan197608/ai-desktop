@@ -4,6 +4,7 @@ import { Button, Modal, Space, Tabs } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import {canvasAsImage} from "@/utils";
 
 interface ShowParams {
   chart: string
@@ -79,8 +80,7 @@ const PopupContainer: React.FC<Props> = ({ resolve, chart }) => {
         if (ctx) {
           ctx.scale(scale, scale)
           ctx.drawImage(img, 0, 0, width, height)
-          const blob = await new Promise<Blob>((resolve) => canvas.toBlob((b) => resolve(b!), 'image/png'))
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+          await canvasAsImage(canvas)
           window.message.success(t('message.copy.success'))
         }
       }

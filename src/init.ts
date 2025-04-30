@@ -8,7 +8,7 @@ import {
   readFile,
   writeFile,
   saveFile,
-  readBase64File, readBinaryFile, downloadFile
+  readBase64File, readBinaryFile, downloadFile, saveImage
 } from '@/types/file'
 import {invoke} from '@tauri-apps/api/core'
 import {FileType, MCPServer, Shortcut} from '@/types'
@@ -31,7 +31,7 @@ import {load} from '@tauri-apps/plugin-store';
   window.configStore = await load('config.json', {autoSave: true})
   window.keyv = new KeyvStorage()
   await window.keyv.init()
-})().then(() => console.log("config loaded"))
+})().then(() => console.log("config loaded", window.isSecureContext))
 
 const api = {
   getAppInfo: () => invoke('get_app_info'),
@@ -49,6 +49,7 @@ const api = {
     write: (fileName: string, data: string) => writeFile(fileName, data),
     openPath: (path: string) => openPath(path),
     save: (path: string, content: string) => saveFile(path, content),
+    saveImage: (name: string, data: string) => saveImage(name, data),
     base64Image: async (fileId: string) => readBase64File(await getDataPath(fileId)),
     download: (url: string) => downloadFile(url),
     binaryFile: async (fileId: string) => readBinaryFile(await getDataPath(fileId))

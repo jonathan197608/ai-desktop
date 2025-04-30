@@ -13,8 +13,7 @@ import { estimateHistoryTokens } from '@/services/TokenService'
 import { useAppDispatch } from '@/store'
 import type { Assistant, Message, Topic } from '@/types'
 import {
-  captureScrollableDivAsBlob,
-  captureScrollableDivAsDataURL,
+  captureScrollableDivAsDataURL, captureScrollableDivAsImage,
   removeSpecialCharactersForFileName,
   runAsyncFunction
 } from '@/utils'
@@ -136,13 +135,7 @@ const Messages: React.FC<MessagesProps> = ({ assistant, topic, setActiveTopic })
           updateTopic({ ..._topic, name: defaultTopic.name } as Topic)
         }
       }),
-      EventEmitter.on(EVENT_NAMES.COPY_TOPIC_IMAGE, async () => {
-        await captureScrollableDivAsBlob(containerRef, async (blob) => {
-          if (blob) {
-            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
-          }
-        })
-      }),
+      EventEmitter.on(EVENT_NAMES.COPY_TOPIC_IMAGE, async () => await captureScrollableDivAsImage(containerRef)),
       EventEmitter.on(EVENT_NAMES.EXPORT_TOPIC_IMAGE, async () => {
         const imageData = await captureScrollableDivAsDataURL(containerRef)
         if (imageData) {
