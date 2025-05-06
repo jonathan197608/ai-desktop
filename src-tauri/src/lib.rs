@@ -160,13 +160,13 @@ async fn get_content(app: tauri::AppHandle, file_path: String) -> Result<String,
     let sidecar_command = app.shell().sidecar("bun")?.args(["-p", &script]);
     let (mut rx, _) = sidecar_command.spawn()?;
     let mut content = String::new();
-    log::info!("get content: {file_path}");
     while let Some(event) = rx.recv().await {
         if let CommandEvent::Stdout(line_bytes) = event {
             let line = String::from_utf8_lossy(&line_bytes);
             content.push_str(&line);
         }
     }
+    log::info!("got content: {}, length: {}", file_path, content.len());
     Ok(content)
 }
 
