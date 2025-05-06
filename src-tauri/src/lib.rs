@@ -2,6 +2,7 @@ mod mcp;
 
 use mcp::{mcp_call_tool, mcp_list_tools, mcp_start, mcp_stop};
 use rmcp::{ServiceError, transport::sse::SseTransportError};
+use serde_json as _;
 use std::sync::{Arc, LazyLock};
 use std::time::Duration;
 use std::{env, fs};
@@ -13,6 +14,8 @@ use tauri_plugin_http::reqwest;
 use tauri_plugin_http::reqwest::Client;
 use tauri_plugin_log::{Target, TargetKind};
 use tauri_plugin_positioner::{Position, WindowExt};
+use tauri_plugin_shell::ShellExt;
+use tauri_plugin_shell::process::CommandEvent;
 use tokio::sync::Mutex;
 use tokio::task::JoinError;
 
@@ -71,6 +74,17 @@ async fn check_release() -> Result<bool, Error> {
     Ok(false)
 }
 async fn setup(app: AppHandle) -> Result<(), Error> {
+    let sidecar_command = app
+        .shell()
+        .sidecar("bun")?
+        .args(["i", "office-text-extractor"]);
+    let (mut rx, _) = sidecar_command.spawn()?;
+    while let Some(event) = rx.recv().await {
+        if let CommandEvent::Terminated(res) = event {
+            log::info!("office-text-extractor installed: {:?}", res);
+            break;
+        }
+    }
     match check_release().await {
         Ok(false) => *UV_PYTHON_INSTALL_MIRROR.lock().await = true,
         Err(e) => {
@@ -136,6 +150,26 @@ async fn set_complete(
     Ok(())
 }
 
+#[tauri::command]
+async fn get_content(app: tauri::AppHandle, file_path: String) -> Result<String, Error> {
+    #[cfg(target_os = "windows")]
+    let file_path = file_path.replace("\\", "\\\\");
+    let script = format!(
+        r#"import {{getTextExtractor}} from 'office-text-extractor';await getTextExtractor().extractText({{input:'{file_path}',type:'file'}})"#
+    );
+    let sidecar_command = app.shell().sidecar("bun")?.args(["-p", &script]);
+    let (mut rx, _) = sidecar_command.spawn()?;
+    let mut content = String::new();
+    log::info!("get content: {file_path}");
+    while let Some(event) = rx.recv().await {
+        if let CommandEvent::Stdout(line_bytes) = event {
+            let line = String::from_utf8_lossy(&line_bytes);
+            content.push_str(&line);
+        }
+    }
+    Ok(content)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -169,6 +203,7 @@ pub fn run() {
             set_complete,
             get_app_info,
             get_hash,
+            get_content,
             mcp_start,
             mcp_list_tools,
             mcp_call_tool,

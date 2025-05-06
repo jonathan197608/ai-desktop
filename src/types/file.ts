@@ -15,7 +15,6 @@ import {
   open as openFile
 } from "@tauri-apps/plugin-fs";
 import * as path from "@tauri-apps/api/path";
-import {Command} from '@tauri-apps/plugin-shell';
 import {fetch} from '@tauri-apps/plugin-http';
 import {v4 as uuidv4} from "uuid";
 import {base64ToUint8Array, uint8ArrayToBase64} from "uint8array-extras";
@@ -148,20 +147,8 @@ export async function uploadFile(filePath: string): Promise<FileType> {
 
 export async function readFile(fileId: string): Promise<string> {
   if (documentExts.includes(await getExt(fileId))) {
-    const filePath = await getDataPath(fileId)
-    const cwd = await path.appDataDir()
-    const command = Command.sidecar('binaries/bun', [
-      'x',
-      '--silent',
-      'officeparser',
-      filePath,
-    ], {cwd});
-    const output = await command.execute()
-    if (output.stderr && !output.stdout) {
-      console.error("readFile", cwd + '/' + filePath, output.stderr)
-      throw new Error(output.stderr)
-    }
-    return output.stdout
+    const filePath = await getDataPathFull(fileId)
+    return await invoke('get_content', {filePath})
   }
   return await readTextFile(await getDataPath(fileId), {baseDir: getBaseDir()})
 }

@@ -30,7 +30,6 @@ declare global {
         upload: (file: FileType) => Promise<FileType>
         delete: (fileId: string) => Promise<void>
         read: (fileId: string) => Promise<string>
-        clear: () => Promise<void>
         get: (filePath: string) => Promise<FileType | null>
         write: (filePath: string, data: string) => Promise<string>
         openPath: (path: string) => Promise<void>

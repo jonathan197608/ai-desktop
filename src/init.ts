@@ -44,7 +44,6 @@ const api = {
     upload: (file: FileType) => uploadFile(file.path),
     delete: async (fileId: string) => remove(await getDataPath(fileId), {baseDir: getBaseDir()}),
     read: async (fileId: string) => readFile(fileId),
-    clear: () => invoke('file:clear'),
     get: async (filePath: string) => makeFile((await path.appDataDir()) + (await getDataPath(filePath))),
     write: (fileName: string, data: string) => writeFile(fileName, data),
     openPath: (path: string) => openPath(path),

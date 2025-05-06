@@ -14,6 +14,8 @@
     "fs:scope-appdata",
     "fs:allow-appdata-meta-recursive",
     "fs:allow-appdata-write-recursive",
+    "fs:allow-read-text-file",
+    "fs:allow-resource-read-recursive",
     "dialog:default",
     "store:default",
     "clipboard-manager:allow-write-image",
@@ -43,9 +45,20 @@
           "name": "binaries/bun",
           "sidecar": true,
           "args": [
-            "x",
-            "--silent",
-            "officeparser",
+            "i",
+            "office-text-extractor"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/bun",
+          "sidecar": true,
+          "args": [
+            "-p",
             {
               "validator": ".+"
             }
