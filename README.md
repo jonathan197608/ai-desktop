@@ -22,7 +22,6 @@ https://jonathan197608.github.io/ai-desktop/
 **Document & Data Processing**:
 
 - 📄 Support for Text, Images, Office, PDF, and more
-- ☁️ WebDAV File Management and Backup
 - 📊 Mermaid Chart Visualization
 - 💻 Code Syntax Highlighting
 

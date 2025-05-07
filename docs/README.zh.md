@@ -22,7 +22,6 @@ https://jonathan197608.github.io/ai-desktop/
 **文档与数据处理**：
 
 - 📄 支持文本、图片、Office、PDF 等多种格式
-- ☁️ WebDAV 文件管理与数据备份
 - 📊 Mermaid 图表可视化
 - 💻 代码高亮显示
 
